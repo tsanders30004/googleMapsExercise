@@ -33,21 +33,20 @@ function initMap() {
      var myHome                         = {lat: 34.083838, lng: -84.281489};
      var southMainKitchenLocation       = {lat: 34.075295, lng: -84.294886};
 
-
-     map = new google.maps.Map(document.getElementById('map'), {
+     myMap = new google.maps.Map(document.getElementById('map'), {
           center: myHome,
           zoom: 14,
      });
 
-     var myHome = new google.maps.Marker({
+     var myHomeMarker = new google.maps.Marker({
           position: myHome,
-          map: map,
+          map: myMap,
           title: 'Home'
      });
 
-     var southMainKitchen = new google.maps.Marker({
+     var southMainKitchenMarker = new google.maps.Marker({
           position: {lat: 34.075295, lng: -84.294886},
-          map: map,
+          map: myMap,
           title: 'South Main Kitchen',
           icon: {
                url: 'smk.png',
@@ -55,16 +54,19 @@ function initMap() {
           }
      });
 
-     var mainStreetKitchenContent='Main Street Kitchen';
+
+
+
+     var mainStreetKitchenContent='<h4>Main Street Kitchen</h4><a href="http://southmainkitchen.com/">Main Street Kitchen</a>';
      var mainStreetKitchenInfoWindow = new google.maps.InfoWindow({
           content:  mainStreetKitchenContent
      });
 
-     southMainKitchen.addListener('click', function(){
-          infowindow.open(map, southMainKitchen);
+     southMainKitchenMarker.addListener('click', function(){
+          mainStreetKitchenInfoWindow.open(myMap, southMainKitchenMarker);
      });
 
-     
+
 }
 
 
