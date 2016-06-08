@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <title>Alpharetta GA</title>
+     <meta name="viewport" content="initial-scale=1.0">
+     <meta charset="utf-8">
+     <style>
+     html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+          font-family: Verdana;
+          box-sizing: border-box;
+     }
+     #map {
+          height: 100%;
+          border: 1px solid black;
+     }
+     button {
+          padding: 1em;
+          font-size: 1em;
+     }
+     #myButtons {
+          padding: 1em;
+     }
+     </style>
+</head>
+<body>
+     <div id="myButtons">
+          <button id="showMarkers" type="button">Show Markers</button>
+          <button id="hideMarkers" type="button">Hide Markers</button>
+     </div>
+     <div id="map"></div>
+
+
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5G4Ayi5do4-xDcxY-C_kDjqllRidNZPw&callback=initMap" async defer></script>
+
+     <script>
+
+     function initMap() {
+          /* create the map */
+          var myMap = new google.maps.Map(document.getElementById('map'), {
+               center: {lat: 34.083838, lng: -84.281489},
+               zoom: 12,
+          });
+
+          /* create and show the markers */
+          var myHomeLocation            = new google.maps.Marker({position: {lat: 34.083838, lng: -84.281489}, map: myMap, animation: google.maps.Animation.DROP, title: 'Home'});
+          var southMainKitchenLocation  = new google.maps.Marker({position: {lat: 34.075295, lng: -84.294886}, map: myMap, animation: google.maps.Animation.DROP, title: 'South Main Kitchen'});
+          var hopAlleyLocation          = new google.maps.Marker({position: {lat: 34.074984, lng: -84.294902}, map: myMap, animation: google.maps.Animation.DROP, title: 'Hop Alley'});
+          var roswellHighSchoolLocation = new google.maps.Marker({position: {lat: 34.062349, lng: -84.381632}, map: myMap, animation: google.maps.Animation.DROP, title: 'Roswell High School'});
+
+          /* create marker array */
+          var setOfMarkers = [];
+          setOfMarkers.push(myHomeLocation, southMainKitchenLocation, hopAlleyLocation, roswellHighSchoolLocation);
+
+          /* create the info window data */
+          var myHomeInfo                = new google.maps.InfoWindow({content: 'My Home'});
+          var southMainKitchenInfo      = new google.maps.InfoWindow({content: 'South Main Kitchen'});
+          var hopAlleyInfo              = new google.maps.InfoWindow({content: 'Hop Alley Brew Pub'});
+          var roswellHighSchoolInfo     = new google.maps.InfoWindow({content: 'Roswell High School'});
+
+          /* create the info windows here */
+          var myHomeInfoWindow               = new google.maps.InfoWindow({content: 'My Home at 2095 Monroe Dr Alpharetta GA 30004'});
+          var southMainKitchenInfoWindow     = new google.maps.InfoWindow({content: 'South Main Kitchen - Good Burgers'});
+          var hopAlleyInfoWindow             = new google.maps.InfoWindow({content: 'Hop Alley - Good Beer'});
+          var roswellHighSchoolInfoWindow    = new google.maps.InfoWindow({content: 'RHS - Go Hornets!'});
+
+          var setOfInfoWindows = [];
+          setOfInfoWindows.push(myHomeInfoWindow, southMainKitchenInfoWindow, hopAlleyInfoWindow, roswellHighSchoolInfoWindow);
+
+          /* function to close any/all open info windows */
+          function hideAllInfoWindows(infoWindows){
+               infoWindows.forEach(function(oneWindow){
+                    oneWindow.close();
+               });
+          }
+
+          /* add the event listeners to show the info windows when the corresponding marker is clicked. */
+          myHomeLocation                .addListener('click', function() {
+               hideAllInfoWindows(setOfInfoWindows);
+               myHomeInfoWindow               .open(myMap, myHomeLocation);
+          });
+
+          southMainKitchenLocation      .addListener('click', function() {
+               hideAllInfoWindows(setOfInfoWindows);
+               southMainKitchenInfoWindow     .open(myMap, southMainKitchenLocation);
+          });
+
+          hopAlleyLocation              .addListener('click', function() {
+               hideAllInfoWindows(setOfInfoWindows);
+               hopAlleyInfoWindow             .open(myMap, hopAlleyLocation);
+          });
+
+          roswellHighSchoolLocation     .addListener('click', function() {
+               hideAllInfoWindows(setOfInfoWindows);
+               roswellHighSchoolInfoWindow.open(myMap, roswellHighSchoolLocation);
+          });
+
+          /* hide the markers when the HIDE button is shown. */
+          document.getElementById('hideMarkers').addEventListener('click', function(){
+               console.log('hide button clicked');
+               for (var i=0; i<setOfMarkers.length; i++) {
+                    setOfMarkers[i].setMap(null);
+               }
+          });
+
+          /* show the markers when the SHOW button is shown. */
+          document.getElementById('showMarkers').addEventListener('click', function(){
+               console.log('hide button clicked');
+               for (var i=0; i<setOfMarkers.length; i++) {
+                    setOfMarkers[i].setMap(myMap);
+               }
+          });
+     }
+
+
+     </script>
+
+
+</body>
+</html>
